@@ -1,3 +1,4 @@
+from django.core.validators import MinValueValidator
 from django.db import models
 from django.contrib.auth.models import User
 from apps.collects.models import Collect
@@ -34,7 +35,8 @@ class Payment(models.Model):
     amount = models.DecimalField(
         max_digits=10,
         decimal_places=2,
-        verbose_name='Сумма платежа'
+        verbose_name='Сумма платежа',
+        validators=[MinValueValidator(0)]
     )
     created_at = models.DateTimeField(
         auto_now_add=True,
