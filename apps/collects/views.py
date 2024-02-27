@@ -9,6 +9,7 @@ from config.settings import COLLECTS_CACHE_KEY, COLLECT_CACHE_KEY_PREFIX
 from .models import Collect
 from .permissions import CollectPermission
 from .serializers import CollectReadSerializer, CollectWriteSerializer
+from .tasks import send_email_for_collect_author
 
 
 class CollectViewSet(viewsets.ModelViewSet):
@@ -44,6 +45,9 @@ class CollectViewSet(viewsets.ModelViewSet):
 
     def create(self, request, *args, **kwargs):
         response = super().create(request, *args, **kwargs)
+        user_email = request.user.email
+        collect_title = request.data['title']
+        send_email_for_collect_author.delay(user_email, collect_title)
         if response.status_code == 201:
             cache.delete(COLLECTS_CACHE_KEY)
         return response
