@@ -46,11 +46,23 @@ DJANGO_APPS = [
 LOCAL_APPS = [
     'rest_framework',
     'drf_spectacular',
+    'rest_framework.authtoken',
 ]
 
 THIRD_PARTY_APPS = ['apps.collects', 'apps.payments']
 
 INSTALLED_APPS = DJANGO_APPS + LOCAL_APPS + THIRD_PARTY_APPS
+
+COLLECTS_CACHE_KEY = 'collects'
+COLLECT_CACHE_KEY_PREFIX = 'collect_'
+
+CACHES = {
+    "default": {
+        "BACKEND": "django.core.cache.backends.redis.RedisCache",
+        "LOCATION": "redis://127.0.0.1:6379",
+        "TIMEOUT": 10*60
+    }
+}
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -119,6 +131,12 @@ AUTH_PASSWORD_VALIDATORS = [
 
 REST_FRAMEWORK = {
     'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.IsAuthenticated',
+    ],
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.TokenAuthentication',
+    ],
 }
 
 SPECTACULAR_SETTINGS = {
@@ -134,6 +152,15 @@ SPECTACULAR_SETTINGS = {
     # available SwaggerUI versions: https://github.com/swagger-api/swagger-ui/releases
     'SWAGGER_UI_DIST': '//unpkg.com/swagger-ui-dist@3.35.1',  # default
 }
+
+# Celery
+
+CELERY_BROKER_URL = 'redis://127.0.0.1:6379'
+CELERY_RESULT_BACKEND = 'redis://127.0.0.1:6379'
+CELERY_ACCEPT_CONTENT = ['application/json']
+CELERY_RESULT_SERIALIZER = 'json'
+CELERY_TASK_SERIALIZER = 'json'
+CELERY_STORE_ERRORS_EVEN_IF_IGNORED = True
 
 # Internationalization
 # https://docs.djangoproject.com/en/5.0/topics/i18n/

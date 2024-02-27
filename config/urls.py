@@ -14,6 +14,8 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+from django.conf import settings
+from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import include, path
 from drf_spectacular.views import (
@@ -22,6 +24,7 @@ from drf_spectacular.views import (
     SpectacularSwaggerView,
 )
 from rest_framework import routers
+from rest_framework.authtoken import views
 
 from apps.collects.views import CollectViewSet
 from apps.payments.views import PaymentViewSet
@@ -34,6 +37,7 @@ v1_urlpatterns = [path('', include(router_v1.urls))]
 
 api_urlpatterns = [
     path('v1/', include(v1_urlpatterns)),
+    path('api-token-auth/', views.obtain_auth_token),
     path('schema/', SpectacularAPIView.as_view(), name='schema'),
     path(
         'docs/',
@@ -51,3 +55,8 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/', include(api_urlpatterns)),
 ]
+
+if settings.DEBUG:
+    urlpatterns += static(
+        settings.MEDIA_URL, document_root=settings.MEDIA_ROOT
+    )
