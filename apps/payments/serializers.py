@@ -4,20 +4,26 @@ from django.contrib.auth.models import User
 from .models import Payment
 
 
-class PaymentSerializer(serializers.ModelSerializer):
+class PaymentReadSerializer(serializers.ModelSerializer):
     class Meta:
         model = Payment
         fields = '__all__'
 
 
-class UserForCollectSerializer(serializers.ModelSerializer):
+class PaymentWriteSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Payment
+        fields = ('collect', 'type', 'amount')
+
+
+class DonorForCollectSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = ('first_name', 'last_name')
 
 
 class PaymentForCollectSerializer(serializers.ModelSerializer):
-    donor = UserForCollectSerializer()
+    donor = DonorForCollectSerializer()
 
     class Meta:
         model = Payment

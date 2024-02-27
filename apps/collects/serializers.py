@@ -4,7 +4,7 @@ from .models import Collect
 from apps.payments.serializers import PaymentForCollectSerializer
 
 
-class CollectSerializer(serializers.ModelSerializer):
+class CollectReadSerializer(serializers.ModelSerializer):
     collected_amount = serializers.DecimalField(
         max_digits=10,
         decimal_places=2,
@@ -25,3 +25,14 @@ class CollectSerializer(serializers.ModelSerializer):
     class Meta:
         model = Collect
         fields = '__all__'
+
+
+class CollectWriteSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Collect
+        fields = ('title',
+                  'reason',
+                  'description',
+                  'planned_amount',
+                  'cover_image',
+                  'finished_at')

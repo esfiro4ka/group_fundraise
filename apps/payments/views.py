@@ -1,9 +1,13 @@
 from rest_framework import viewsets
 
 from .models import Payment
-from .serializers import PaymentSerializer
+from .serializers import PaymentReadSerializer, PaymentWriteSerializer
 
 
 class PaymentViewSet(viewsets.ModelViewSet):
     queryset = Payment.objects.all()
-    serializer_class = PaymentSerializer
+
+    def get_serializer_class(self):
+        if self.action in ['list', 'retrieve']:
+            return PaymentReadSerializer
+        return PaymentWriteSerializer
