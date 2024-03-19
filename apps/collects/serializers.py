@@ -1,7 +1,8 @@
 from rest_framework import serializers
 
-from .models import Collect
 from apps.payments.serializers import PaymentForCollectSerializer
+
+from .models import Collect
 
 
 class CollectReadSerializer(serializers.ModelSerializer):

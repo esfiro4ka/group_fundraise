@@ -1,12 +1,12 @@
-from rest_framework import mixins, viewsets
 from django.core.cache import cache
+from rest_framework import mixins, viewsets
 
-from config.settings import COLLECTS_CACHE_KEY, COLLECT_CACHE_KEY_PREFIX
+from apps.collects.models import Collect
+from config.settings import COLLECT_CACHE_KEY_PREFIX, COLLECTS_CACHE_KEY
+
 from .models import Payment
 from .serializers import PaymentSerializer
 from .tasks import send_email_for_donor
-
-from apps.collects.models import Collect
 
 
 class PaymentViewSet(mixins.CreateModelMixin,

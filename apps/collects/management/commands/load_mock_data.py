@@ -1,10 +1,11 @@
 import random
-from django.core.management.base import BaseCommand
-from django.contrib.auth.models import User
-import factory
 
-from apps.collects.models import Collect
+import factory
+from django.contrib.auth.models import User
+from django.core.management.base import BaseCommand
+
 from apps.collects.factories import CollectFactory, UserFactory
+from apps.collects.models import Collect
 from apps.payments.factories import PaymentFactory
 
 

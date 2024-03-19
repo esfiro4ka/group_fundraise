@@ -1,8 +1,11 @@
-import factory
-from apps.collects.factories import CollectFactory, UserFactory
-from .models import Payment, Type
-from decimal import Decimal
 import random
+from decimal import Decimal
+
+import factory
+
+from apps.collects.factories import CollectFactory, UserFactory
+
+from .models import Payment, Type
 
 
 class PaymentFactory(factory.django.DjangoModelFactory):

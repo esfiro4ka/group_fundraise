@@ -1,11 +1,11 @@
-from drf_spectacular.utils import extend_schema
-from rest_framework import status
-from rest_framework import viewsets
-from rest_framework.response import Response
-from django.db.models import Count, Sum
 from django.core.cache import cache
+from django.db.models import Count, Sum
+from drf_spectacular.utils import extend_schema
+from rest_framework import status, viewsets
+from rest_framework.response import Response
 
-from config.settings import COLLECTS_CACHE_KEY, COLLECT_CACHE_KEY_PREFIX
+from config.settings import COLLECT_CACHE_KEY_PREFIX, COLLECTS_CACHE_KEY
+
 from .models import Collect
 from .permissions import CollectPermission
 from .serializers import CollectReadSerializer, CollectWriteSerializer
