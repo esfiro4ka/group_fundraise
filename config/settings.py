@@ -193,3 +193,8 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# export database to google sheets
+
+SHEET_ID = os.environ['SHEET_ID']
+GOOGLE_SHEET_CREDENTIALS = BASE_DIR / 'infra' / os.environ['GOOGLE_SHEET_CREDENTIALS']

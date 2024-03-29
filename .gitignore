@@ -4,3 +4,9 @@ __pycache__/
 # Environments
 venv/
 .env
+
+# Files created by OS
+.DS_Store
+
+# JSON files
+*.json
