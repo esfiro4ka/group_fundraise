@@ -42,7 +42,7 @@ def export_to_google_sheets():
             row_data_serialized = [
                 serialize_value(value) for value in row_data]
             sheet.insert_row(row_data_serialized, index=row_num)
-            time.sleep(10)
+            time.sleep(5)
 
     data_table1 = get_data_from_table('collects_collect')
     data_table2 = get_data_from_table('payments_payment')
