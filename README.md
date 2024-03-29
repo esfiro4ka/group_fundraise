@@ -55,8 +55,23 @@
     docker compose exec group-fundraise-web python manage.py load_mock_data [вставьте количество]
   ```
 
-Замените "[вставьте количество]" на необходимое количество моковых данных. Например, команда может выглядеть, как: `docker compose exec group-fundraise-web python manage.py load_mock_data 1000`.
+Замените '[вставьте количество]' на необходимое количество моковых данных. Например, команда может выглядеть, как: `docker compose exec group-fundraise-web python manage.py load_mock_data 1000`.
 
+## Выгрузка данных из БД в Google Sheets
+
+Создайте таблицу в [Google Sheets](https://docs.google.com/spreadsheets/).
+
+Выберите существующий проект или создайте новый проект, а также сервисный аккаунт для него в [Google Cloud Console](https://console.cloud.google.com/cloud-resource-manager).
+
+Запомните значение автоматически присвоенного Идентификатора сервисного аккаунта. После этого создайте ключ в формате JSON и поместите его в папку infra. Откройте файл для редактирования и в поле 'client_email' введите значение Идентификатора.
+
+Перейдите в настройки проекта в Google Cloud Console и включите Google Sheets API.
+
+Выгрузите данные из БД командой в терминале:
+
+  ```
+    docker compose exec group-fundraise-web python manage.py google_export_data
+  ```
 
 ## Документация
 

@@ -1,25 +1,21 @@
 from django.db import connection
 
 
-def get_all_table_names():
+def get_table_columns(table_name):
     with connection.cursor() as cursor:
         cursor.execute(
-            """SELECT table_name FROM information_schema.tables
-            WHERE table_schema = 'public'""")
-        table_names = cursor.fetchall()
+            f"""SELECT column_name FROM information_schema.columns
+            WHERE table_name = '{table_name}'""")
+        columns = cursor.fetchall()
+    return [column[0] for column in columns]
 
-    return [name[0] for name in table_names]
 
+def get_data_from_table(table_name):
+    data = []
 
-def get_data_from_all_tables():
-    all_data = []
+    with connection.cursor() as cursor:
+        cursor.execute(f"""SELECT * FROM {table_name}""")
+        data = cursor.fetchall()
+        data.extend(data)
 
-    table_names = get_all_table_names()
-
-    for table_name in table_names:
-        with connection.cursor() as cursor:
-            cursor.execute(f'SELECT * FROM {table_name}')
-            data = cursor.fetchall()
-            all_data.extend(data)
-
-    return all_data
+    return data
