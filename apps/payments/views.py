@@ -11,6 +11,15 @@ from .tasks import send_email_for_donor
 
 class PaymentViewSet(mixins.CreateModelMixin,
                      viewsets.GenericViewSet):
+    """Вьюсет для создания платежей.
+
+    При создании платежа на групповой сбор донору отправляется уведомление
+    об успешной операции.
+
+    При создании платежа на групповой денежный сбор кэш с информацией
+    о сборе и списке сборов удаляется.
+    """
+
     queryset = Payment.objects.all()
     serializer_class = PaymentSerializer
 

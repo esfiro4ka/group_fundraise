@@ -6,6 +6,8 @@ from config.settings import EMAIL_HOST_USER
 
 @shared_task
 def send_email_for_donor(user_email, amount, collect_title):
+    """Отправляет электронное письмо донору о выполненном платеже."""
+
     subject = 'Платеж отправлен!'
     message = (
         f'Ваш платеж {amount} успешно отправлен на групповой денежный сбор '

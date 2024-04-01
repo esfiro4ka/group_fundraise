@@ -9,6 +9,8 @@ from .models import Payment, Type
 
 
 class PaymentFactory(factory.django.DjangoModelFactory):
+    """Фабрика для создания экземпляров платежей."""
+
     class Meta:
         model = Payment
 
