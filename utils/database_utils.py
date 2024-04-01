@@ -2,6 +2,8 @@ from django.db import connection
 
 
 def get_table_columns(table_name):
+    """Получает имена столбцов указанной таблицы из базы данных."""
+
     with connection.cursor() as cursor:
         cursor.execute(
             f"""SELECT column_name
@@ -13,6 +15,8 @@ def get_table_columns(table_name):
 
 
 def get_data_from_table(table_name):
+    """Получает данные из указанной таблицы базы данных."""
+
     data = []
 
     with connection.cursor() as cursor:

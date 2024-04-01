@@ -11,6 +11,13 @@ from .database_utils import get_data_from_table, get_table_columns
 
 
 def export_to_google_sheets():
+    """
+    Экспортирует данные из базы данных в Google Sheets.
+
+    Подключается к Google Sheets API, создает новые листы для таблицы
+    "Collects" и "Payments",
+    извлекает данные из базы данных и записывает их в соответствующие листы.
+    """
 
     scope = ['https://www.googleapis.com/auth/spreadsheets']
     creds = ServiceAccountCredentials.from_json_keyfile_name(
