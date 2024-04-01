@@ -6,6 +6,19 @@ from .models import Collect
 
 
 class CollectReadSerializer(serializers.ModelSerializer):
+    """
+    Сериализатор для чтения объектов Collect.
+
+    Включает поля для collected_amount, donors_number и collect_feed.
+
+    - collected_amount: Только для чтения поле Decimal,
+    представляющее собранную сумму.
+    - donors_number: Только для чтения целочисленное поле,
+    представляющее количество доноров.
+    - collect_feed: Только для чтения поле сериализатора,
+    представляющее ленту платежей для сбора.
+    """
+
     collected_amount = serializers.DecimalField(
         max_digits=10,
         decimal_places=2,
@@ -29,6 +42,8 @@ class CollectReadSerializer(serializers.ModelSerializer):
 
 
 class CollectWriteSerializer(serializers.ModelSerializer):
+    """Сериализатор для записи объектов Collect."""
+
     class Meta:
         model = Collect
         fields = ('title',

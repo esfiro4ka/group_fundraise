@@ -5,6 +5,8 @@ from .models import Collect, Reason
 
 
 class UserFactory(factory.django.DjangoModelFactory):
+    """Фабрика для создания экземпляров пользователя."""
+
     class Meta:
         model = User
 
@@ -15,6 +17,8 @@ class UserFactory(factory.django.DjangoModelFactory):
 
 
 class CollectFactory(factory.django.DjangoModelFactory):
+    """Фабрика для создания экземпляров группового денежного сбора."""
+
     class Meta:
         model = Collect
 

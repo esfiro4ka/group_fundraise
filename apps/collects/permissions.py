@@ -2,6 +2,17 @@ from rest_framework.permissions import SAFE_METHODS, BasePermission
 
 
 class CollectPermission(BasePermission):
+    """
+    Права доступа для групповых денежных сборов.
+
+    Разрешает GET запросы всем пользователям.
+    Разрешает POST, PUT и DELETE запросы аутентифицированным пользователям.
+
+    При проверке объектных разрешений:
+    - Разрешает SAFE_METHODS (GET, HEAD, OPTIONS) всем пользователям.
+    - Разрешает PUT и DELETE запросы только автору объекта.
+    """
+
     def has_permission(self, request, view):
         if request.method == 'GET':
             return True

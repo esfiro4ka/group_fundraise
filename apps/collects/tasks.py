@@ -6,6 +6,11 @@ from config.settings import EMAIL_HOST_USER
 
 @shared_task
 def send_email_for_collect_author(user_email, collect_title):
+    """
+    Отправляет автору группового денежного сбора электронное письмо с
+    уведомлением об успешном создании группового денежного сбора.
+    """
+
     subject = 'Групповой денежный сбор создан!'
     message = (f'Ваш групповой денежный сбор "{collect_title}" успешно создан.'
                f'Желаем удачи!')
