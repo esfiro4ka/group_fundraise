@@ -3,6 +3,7 @@ import decimal
 import time
 
 import gspread
+import gspread_formatting as gspf
 from oauth2client.service_account import ServiceAccountCredentials
 
 from config.settings import GOOGLE_SHEET_CREDENTIALS, SHEET_ID
@@ -34,10 +35,19 @@ def export_to_google_sheets():
     header_row_data_table1 = get_table_columns('collects_collect')
     header_row_data_table2 = get_table_columns('payments_payment')
 
-    sheet1.insert_row(header_row_data_table1, index=1)
-    sheet2.insert_row(header_row_data_table2, index=1)
+    def bold_insert_row(sheet, header_row_data_table, index=1):
+        """Вставляет названия колонок жирным шрифтом."""
+
+        sheet.insert_row(header_row_data_table, index)
+        bold_format = gspf.cellFormat(textFormat=gspf.TextFormat(bold=True))
+        gspf.format_cell_range(sheet, f'A{index}:ZZ{index}', bold_format)
+
+    bold_insert_row(sheet1, header_row_data_table1, index=1)
+    bold_insert_row(sheet2, header_row_data_table2, index=1)
 
     def serialize_value(value):
+        """Преобразует данные в формат, пригодный для сериализации в JSON."""
+
         if isinstance(value, decimal.Decimal):
             return float(value)
         if isinstance(value, datetime.datetime):
@@ -45,6 +55,8 @@ def export_to_google_sheets():
         return value
 
     def insert_data_to_sheet(data, sheet):
+        """Вставляет данные."""
+
         for row_num, row_data in enumerate(data, start=2):
             row_data_serialized = [
                 serialize_value(value) for value in row_data]
